@@ -41,7 +41,7 @@ public class TreePanel extends JPanel
         double angleL, angleR, newLength;
         int xL, yL, xR, yR;
         //make terminating condition branch length
-        if (length <= .1)
+        if (length <= 1)
             return;
         else
         {
