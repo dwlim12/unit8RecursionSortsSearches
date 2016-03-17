@@ -6,6 +6,8 @@
 
 import java.awt.*;
 import javax.swing.JPanel;
+import java.awt.geom.Point2D;
+import java.awt.geom.Line2D;
 
 public class TreePanel extends JPanel
 {
@@ -17,14 +19,14 @@ public class TreePanel extends JPanel
     private final int XONE = 200, YONE = 500;
     private final int XTWO = 200, YTWO = 400;
     private final double INITLENGTH = 100;
-    private final double INITANGLE = (Math.PI / 3);
+    private final double INITANGLE = 45;
 
     //-----------------------------------------------------------------
     //  Sets the initial fractal order to the value specified.
     //-----------------------------------------------------------------
     public TreePanel ()
     {
-        setBackground (Color.WHITE);
+        setBackground (Color.BLACK);
         setPreferredSize (new Dimension(PANEL_WIDTH, PANEL_HEIGHT));
     }
 
@@ -34,33 +36,40 @@ public class TreePanel extends JPanel
     //  intermediate points are computed, and each line segment is
     //  drawn as a fractal.
     //-----------------------------------------------------------------
-//     public void drawFractal (double x1, double y1, double length, double angle, Graphics2D g2)
-//     {
-//         double deltaX, deltaY, x2, y2, angle2;
-//         //make terminating condition branch length
-//         if (length <= EPSILON)
-//             return;
-//         else
-//         {
-//             g2.drawLine(x1,y1,XTWO,YTWO);
-//             deltaX = length * Math.sin(angle);
-//             deltaY = length * Math.cos(angle);
-//             //          drawFractal (x1, y1,,, page);
-//             //          drawFractal (x2, y2,,, page);
-//             //          drawFractal (x3, y3,,, page);
-//             //          drawFractal (x4, y4,,, page);
-//         }
-//     }
+    public void drawFractal(int x1, int y1, double length, double angle, Graphics2D g2)
+    {
+        double angleL, angleR, newLength;
+        int xL, yL, xR, yR;
+        //make terminating condition branch length
+        if (length <= .1)
+            return;
+        else
+        {
+            angleL = angle + INITANGLE;
+            angleR = angle - INITANGLE;
+            newLength = length * (2.0/3.0);
+            xL = (int)(length*Math.sin(angleL) + x1);
+            yL = (int)(y1 - length*Math.cos(angleL));
+            xR = (int)(length*Math.sin(angleR) + x1);
+            yR = (int)(y1 - length*Math.cos(angleR));
+            
+            g2.drawLine(x1,y1,xL,yL);
+            g2.drawLine(x1,y1,xR,yR);
+            
+            drawFractal(xL,yL,newLength,angleL,g2);
+            drawFractal(xR,yR,newLength,angleR,g2);
+        }
+    }
 
     //-----------------------------------------------------------------
     //  Performs the initial calls to the drawFractal method.
     //-----------------------------------------------------------------
-    public void paintComponent (Graphics2D g2)
+    public void paintComponent (Graphics g)
     {
+        Graphics2D g2 = (Graphics2D) g;
         super.paintComponent (g2);
-
-        g2.setColor (Color.BLACK);
-
-        g2.drawLine (XONE, YONE, XTWO, YTWO);
+        g2.setColor(Color.GREEN);
+        g2.drawLine(XONE,YONE,XTWO,YTWO);
+        drawFractal(XTWO,YTWO,INITLENGTH,0,g2);
     }
 }

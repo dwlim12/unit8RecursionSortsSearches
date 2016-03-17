@@ -11,7 +11,7 @@ import javax.swing.*;
 public class TreeViewer extends JFrame
 {
     private final int WIDTH = 400;
-    private final int HEIGHT = 500;
+    private final int HEIGHT = 550;
 
     private JLabel titleLabel;
     private TreePanel drawing;
@@ -33,7 +33,7 @@ public class TreeViewer extends JFrame
         panel = new JPanel();
         panel.add (drawing);
 
-        this.setTitle("Knoch Snowflake");
+        this.setTitle("Fractal Tree");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
         this.add(panel);
