@@ -10,7 +10,7 @@ import javax.swing.*;
 
 public class TreeViewer extends JFrame
 {
-    private final int WIDTH = 400;
+    private final int WIDTH = 500;
     private final int HEIGHT = 550;
 
     private JLabel titleLabel;

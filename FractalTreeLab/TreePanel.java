@@ -11,7 +11,7 @@ import java.awt.geom.Line2D;
 
 public class TreePanel extends JPanel
 {
-    private final int PANEL_WIDTH = 400;
+    private final int PANEL_WIDTH = 450;
     private final int PANEL_HEIGHT = 500;
     private final double EPSILON = 10E-4;
     private final double SQ = Math.sqrt(3.0) / 6;
@@ -19,7 +19,7 @@ public class TreePanel extends JPanel
     private final int XONE = 200, YONE = 500;
     private final int XTWO = 200, YTWO = 400;
     private final double INITLENGTH = 100;
-    private final double INITANGLE = 45;
+    private final double INITANGLE = 50;
 
     //-----------------------------------------------------------------
     //  Sets the initial fractal order to the value specified.
@@ -46,14 +46,15 @@ public class TreePanel extends JPanel
         else
         {
             angleL = angle + INITANGLE;
-            angleR = angle - INITANGLE;
+            angleR = angle - INITANGLE - 50;
             newLength = length * (2.0/3.0);
             xL = (int)(length*Math.sin(angleL) + x1);
             yL = (int)(y1 - length*Math.cos(angleL));
             xR = (int)(length*Math.sin(angleR) + x1);
             yR = (int)(y1 - length*Math.cos(angleR));
-            
+            g2.setColor(Color.RED);
             g2.drawLine(x1,y1,xL,yL);
+            g2.setColor(Color.BLUE);
             g2.drawLine(x1,y1,xR,yR);
             
             drawFractal(xL,yL,newLength,angleL,g2);
@@ -68,7 +69,7 @@ public class TreePanel extends JPanel
     {
         Graphics2D g2 = (Graphics2D) g;
         super.paintComponent (g2);
-        g2.setColor(Color.GREEN);
+        g2.setColor(Color.MAGENTA);
         g2.drawLine(XONE,YONE,XTWO,YTWO);
         drawFractal(XTWO,YTWO,INITLENGTH,0,g2);
     }
